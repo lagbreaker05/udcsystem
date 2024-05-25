@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption != ''){
+                    window.location.replace(selectedOption);
+                }
+            });
+        });
+    </script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	   <div th:insert="~{fragments/header :: header}"></div>
+  	  <div class="container">
+			
+        <form class="registration-form" th:action="@{/registration}" method="post" role="form" th:object="${user}">
+			
+		    <div class="message" th:if="${message != null}">
+           [[${message}]]
+        </div>
+
+	
+
+            <h2 th:text="#{label.registration}">Register</h2>
+            <div class="message" id="message"></div>
+            <div class="form-group">
+                <label for="username" th:text="#{label.username}">Username:</label>
+                <input th:field="*{username}" type="text" id="username" name="username" th:placeholder="#{input.placeholder.username}" required>
+            </div>
+            <div class="form-group">
+                <label for="fullname" th:text="#{label.fullname}">Fullname:</label>
+                <input th:field="*{fullName}" type="text" id="fullName" name="fullName" th:placeholder="#{input.placeholder.fullname}" required>
+            </div>
+            <div class="form-group">
+                <label for="password" th:text="#{label.password}">Password:</label>
+                <input th:field="*{password}" type="password" id="password" name="password" th:placeholder="#{input.placeholder.password}" required>
+            </div>
+           <button type="submit" th:text="#{label.register}">Register</button>
+        </form>
+    </div>
+  <div th:insert="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

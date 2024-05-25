@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption != ''){
+                    window.location.replace(selectedOption);
+                }
+            });
+        });
+    </script>
+    <link rel="stylesheet" th:href="@{/css/style.css}"> <!-- Link to your CSS file -->
+</head>
+<body>
+	<div th:insert="~{fragments/header :: header}"></div>
+    <div class="container">
+        <!-- Messages displayed based on certain conditions -->
+        
+        <!-- Login form -->
+        <form class="registration-form" th:action="@{/login}" method="post">
+			<div class="message" th:if="${error}">
+            <p th:text="${error}"></p>
+        </div>
+        <div class="message" th:if="${param.logout}"> <!-- Corrected typo here -->
+            Logout Successfuly
+        </div>
+            <h2 th:text="#{label.login}">Login</h2>
+            <div class="message" id="message"></div>
+            <div class="form-group">
+                <label for="username" th:text="#{label.username}">Username:</label>
+                <input  type="text" id="username" name="username" th:placeholder="#{input.placeholder.username}" required>
+            </div>
+            <div class="form-group">
+                <label for="password" th:text="#{label.password}">Password:</label>
+                <input  type="password" id="password" name="password" th:placeholder="#{input.placeholder.password}" required>
+            </div>
+            <button type="submit">Login</button> <!-- Corrected button text -->
+        </form>
+    </div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>
