@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UDC Hierarchy</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.expand').on('click', function(event) {
+                event.preventDefault();
+                var nodeId = $(this).data('id');
+                var childrenUl = $('#children-' + nodeId);
+                if (childrenUl.is(':empty')) {
+                    $.get('/children/' + nodeId, function(data) {
+                        childrenUl.html(data);
+                        childrenUl.slideToggle();
+                    });
+                } else {
+                    childrenUl.slideToggle();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <ul>
+        <li th:each="child : ${children}" th:id="'node-' + ${child.id}">
+            <span><b th:text="${child.code}"></b> - <a href="#" class="expand" th:attr="data-id=${child.id}"><span th:text="${child.title}"></span></a></span>
+            <ul th:id="'children-' + ${child.id}" style="display: none; margin-left: 20px;"></ul>
+        </li>
+    </ul>
+</body>
+</html>

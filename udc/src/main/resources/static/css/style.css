@@ -56,10 +56,15 @@ header nav a {
 
 /* Footer styles */
 footer {
-    background-color: #333; /* Dark background color */
-    color: #fff; /* White text color */
-    padding: 10px 0; /* Padding at the top and bottom */
-    text-align: center; /* Center align text */
+ background-color: #333; /* Темний колір фону */
+    color: #fff; /* Колір тексту - білий */
+    padding: 10px 0; /* Відступи зверху і знизу */
+    text-align: center; /* Вирівнювання тексту по центру */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+     position: absolute;
 }
 .container {
     display: flex;

@@ -1,5 +1,7 @@
 package com.example.udc.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +12,7 @@ import com.example.udc.model.User;
 public interface UserRepository extends JpaRepository <User, Long>  {
 
 	User findByUsername (String username);
+	
+	
 	
 }

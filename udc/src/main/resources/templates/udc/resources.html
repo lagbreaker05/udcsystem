@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resources List</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+    <h1>Resources List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publication Date</th>
+                <th>UDC</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="resource : ${resources}">
+                <td th:text="${resource.id}">1</td>
+                <td th:text="${resource.title}">Sample Title</td>
+                <td th:text="${resource.author}">Sample Author</td>
+                <td th:text="${#dates.format(resource.publicationDate, 'yyyy-MM-dd')}">2024-01-01</td>
+                <td th:text="${resource.udc != null ? resource.udc.id : 'N/A'}">UDC ID</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

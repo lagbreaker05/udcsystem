@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resource Translations</title>
+</head>
+<body>
+    <h1 th:text="#{resource.translations.title}">Resource Translations</h1>
+    <form action="/resources/translations" method="post">
+        <input type="hidden" name="resource.id" th:value="${param.resourceId}">
+        <input type="text" name="languageCode" placeholder="Language Code" required>
+        <input type="text" name="title" placeholder="Title" required>
+        <input type="text" name="author" placeholder="Author">
+        <textarea name="abstractText" placeholder="Abstract"></textarea>
+        <button type="submit" th:text="#{resource.translations.add}">Add Translation</button>
+    </form>
+    <ul>
+        <li th:each="translation : ${translations}">
+            <p th:text="${translation.languageCode}">Language Code</p>
+            <p th:text="${translation.title}">Title</p>
+            <p th:text="${translation.author}">Author</p>
+            <p th:text="${translation.abstractText}">Abstract</p>
+        </li>
+    </ul>
+</body>
+</html>
