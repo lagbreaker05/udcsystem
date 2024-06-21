@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Hell</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+      <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption != ''){
+                    window.location.replace(selectedOption);
+                }
+            });
+        });
+    </script>
 </head>
 <body>
+<div th:insert="~{fragments/header_admin :: header}"></div>
+    <h1 th:text="#{h.hello}">Hello, admin!</h1>
+    <h2 th:text="#{h.project}">This project was created as Diploma project for NCNTU</h2>
+<img src="/img/ncntu.jpg" alt="NCNTU">
 
-    <h1>Hello, admin!</h1>
-
+<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

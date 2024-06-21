@@ -24,25 +24,26 @@ public class AdminController {
 	@Autowired
 	private UserServiceImpl userService;
 
-	 @GetMapping("/users")
+	 @GetMapping("/admin/users")
 	    public String userList(Model model) {
 	        List<User> users = userService.findAll();
 	        model.addAttribute("users", users);
-	        return "userList";
+	        return "admin/userList";
 	    }
 
-	    @PostMapping("/updateUser")
+	    @PostMapping("/admin/updateUser")
 	    public String updateUser(@RequestParam("username") String username,
 	                             @RequestParam("role") String role,
 	                             @RequestParam("fullName") String fullName) {
 	        userService.updateUser(username, role, fullName);
-	        return "redirect:/users";
+	        return "redirect:/admin/users";
 	    }
 
-	    @PostMapping("/deleteUser")
+	    @PostMapping("/admin/deleteUser")
 	    public String deleteUser(@RequestParam("username") String username) {
 	        userService.deleteUser(username);
-	        return "redirect:/users";
+	        return "redirect:/admin/users";
 	    }
+	    
 	 
 }

@@ -3,6 +3,8 @@ package com.example.udc.model;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class Resource {
 	    private Date publicationDate;
 
 	    @ManyToOne
+	    @JsonIgnore
 	    @JoinColumn(name = "udc_id")
 	    private UDC udc;
 

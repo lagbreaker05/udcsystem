@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resources Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption != ''){
+                    window.location.replace(selectedOption);
+                }
+            });
+        });
+    </script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+      <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption != ''){
+                    window.location.replace(selectedOption);
+                }
+            });
+        });
+    </script>
+    
+</head>
+<body>
+	<div th:insert="~{fragments/header_admin :: header}"></div>
+    <h1 th:text="#{label.resources_management}">Resources Management</h1>
+
+    <div class="resource-form">
+        <form th:action="@{/admin/resources}" method="post">
+            <input type="text" name="title" placeholder="Title" required/>
+            <input type="text" name="author" placeholder="Author" required/>
+            <input type="date" name="publicationDate" placeholder="Publication Date" required/>
+            <input type="text" name="udcCode" placeholder="UDC Code" required/>
+            <button type="submit" th:text="#{label.add_resource}">Add Resource</button>
+        </form>
+    </div>
+
+    <div class="resource-form">
+        <form th:action="@{/admin/resources/edit}" method="post">
+            <input type="number" name="id" placeholder="ID" required/>
+            <input type="text" name="title" placeholder="Title" required/>
+            <input type="text" name="author" placeholder="Author" required/>
+            <input type="date" name="publicationDate" placeholder="Publication Date" required/>
+            <input type="text" name="udcCode" placeholder="UDC Code" required/>
+            <button type="submit" th:text="#{label.edit}">Edit Resource</button>
+        </form>
+    </div>
+
+    <div class="resource-form">
+        <form th:action="@{/admin/resources/delete}" method="post">
+            <input type="number" name="id" placeholder="ID" required/>
+            <button type="submit" th:text="#{input.delete}">Delete Resource</button>
+        </form>
+    </div>
+
+    <h2 th:text="#{label.existing}">Existing Resources</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th th:text="#{table.title}">Title</th>
+                <th th:text="#{table.author}">Author</th>
+                <th th:text="#{table.publication_date}">Publication Date</th>
+                <th th:text="#{table.code}">UDC Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="resource : ${resources}">
+                <td th:text="${resource.id}">1</td>
+                <td th:text="${resource.title}">Title</td>
+                <td th:text="${resource.author}">Author</td>
+                <td th:text="${#dates.format(resource.publicationDate, 'yyyy-MM-dd')}">2020-01-01</td>
+                <td th:text="${resource.udc.code}">UDC Code</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

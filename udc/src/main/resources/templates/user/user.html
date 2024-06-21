@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bye World</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption != ''){
+                    window.location.replace(selectedOption);
+                }
+            });
+        });
+    </script>
+    
 </head>
 <body>
+	<div th:insert="~{fragments/header_user :: header}"></div>
 
-    <h1>Welcome, user</h1>
-
+    <h1 th:text="#{h.welcome_user}">Welcome, user</h1>
+    <h2 th:text="#{h.project}">Welcome, user</h2>
+<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

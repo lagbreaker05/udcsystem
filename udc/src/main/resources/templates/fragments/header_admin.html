@@ -7,8 +7,10 @@
             <option value="?lang=en" th:text="#{option.english}">English</option>
              <option value="?lang=ua" th:text="#{option.ukrainian}">Ukrainian</option>
 			</select>
-			 <a th:href="@{/login}" th:text="#{label.login}">Link Text</a>
-         <a th:href="@{/registration}" th:text="#{label.registration}">Link Text</a>
+			<a th:href="@{/admin/admin}" th:text="#{label.admin}">Link Text</a>
+			<a th:href="@{/admin/resources}" th:text="#{label.resources}">Link Text</a>
+			 <a th:href="@{/admin/udcs}" th:text="#{label.udc_table}">Link Text</a>
+         <a th:href="@{/admin/users}" th:text="#{label.users}">Link Text</a>
         </nav>
     </header>
     

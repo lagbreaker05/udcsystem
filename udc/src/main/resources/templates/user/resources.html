@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{label.resource_search}">Resource Search</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption != ''){
+                    window.location.replace(selectedOption);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+	<div th:insert="~{fragments/header_user :: header}"></div>
+    <h1 th:text="#{resource.search}">Resource Search</h1>
+    <div class="resource-form">
+    <form th:action="@{/user/resources/search}" method="get">
+        <label th:text="#{search.by}">Search By:</label>
+        <select name="searchBy">
+            <option value="title" th:text="#{table.title}">Title</option>
+            <option value="author " th:text="#{table.author}">Author</option>
+            <option value="udcCode" th:text="#{table.code}">UDC Code</option>
+        </select>
+        <input type="text" name="keyword" required>
+        <button type="submit" th:text="#{label.search}">Search</button>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th th:text="#{table.title}">Title</th>
+                <th th:text="#{table.author}">Author</th>
+                <th th:text="#{table.publication_date}">Publication Date</th>
+                <th th:text="#{table.code}">UDC Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="resource, index : ${resources}">
+                <td th:text="${index.index + 1}"></td>
+                <td th:text="${resource.title}"></td>
+                <td th:text="${resource.author}"></td>
+                <td th:text="${#dates.format(resource.publicationDate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${resource.udc.code}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <form th:action="@{/user/resources}" method="get">
+        <button type="submit" th:text="#{label.show_all}">Show All Resources</button>
+    </form>
+    </div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UDCs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+         function toggleChildren(element, parentId) {
+        const row = $(element).closest('tr');
+        if (row.next().hasClass('child') && row.next().data('parent') == parentId) {
+            row.nextUntil('.parent').remove();
+            $(element).text('+');
+        } else {
+            $.get('/admin/udcs/children/' + parentId, function (data) {
+                let rows = '';
+                data.forEach(function (udc) {
+                    rows += '<tr class="child" data-parent="' + parentId + '">' +
+                            '<td style="padding-left: 20px;">' + // Додаємо відступ для дочірніх елементів
+                            udc.code + ' ' + udc.title +
+                            ' <button onclick="toggleChildren(this, ' + udc.id + ')">+</button>' +
+                            ' <button onclick="showResources(' + udc.id + ')">Show Resources</button>' +
+                            '</td></tr>';
+                });
+                row.after(rows);
+                $(element).text('-');
+            });
+        }
+    }
+
+function showResources(udcId) {
+    $.get('/admin/udcs/resources/' + udcId, function (data) {
+        let resourceList = '<table border="1"><tr><th>ID</th><th th:text="#{table.title}">Title</th><th th:text="#{table.author}">Author</th><th th:text="#{table.publication_date}">Publication Date</th></tr>';
+        
+        data.forEach(function (resource) {
+            
+            let date = new Date(resource.publicationDate);
+            let formattedDate = date.getFullYear() + '-' + 
+                                ('0' + (date.getMonth() + 1)).slice(-2) + '-' + 
+                                ('0' + date.getDate()).slice(-2);
+            
+            resourceList += '<tr>' +
+				            '<td>' + resource.id + '</td>'+
+                            '<td>' + resource.title + '</td>' +
+                            '<td>' + resource.author + '</td>' +
+                            '<td>' + formattedDate + '</td>' +
+                            '</tr>';
+        });
+        
+        resourceList += '</table>';
+        
+        $('#resources').html(resourceList);
+    });
+}
+    </script>
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $(this).val();
+                if (selectedOption != ''){
+                    window.location.replace(selectedOption);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+	<div th:insert="~{fragments/header_admin :: header}"></div>
+    <table>
+        <thead>
+            <tr><th>UDC</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="udc : ${udcs}" class="parent">
+                <td th:text="${udc.code} + ' ' + ${udc.title}"></td>
+                <td>
+                    <button th:attr="onclick='toggleChildren(this, ' + ${udc.id} + ')'">+</button>
+                    <button th:attr="onclick='showResources(' + ${udc.id} + ')'" th:text="#{button.show_resources}">Show Resources</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="resources"></div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -64,7 +64,7 @@ footer {
     bottom: 0;
     width: 100%;
     margin-top: auto;
-     position: absolute;
+     position: fixed;
 }
 .container {
     display: flex;
@@ -118,3 +118,39 @@ button[type="submit"]:hover {
     background-color: #45a049;
 }
 
+.resource-form {
+    display: flex; /* Встановлюємо контейнеру режим відображення "flex" */
+    flex-wrap: wrap; /* Дозволяємо елементам переноситися на новий ряд */
+    justify-content: space-between; /* Рівномірно розподіляємо простір між елементами */
+}
+
+.resource-form form {
+    flex: 0 1 calc(30% - 20px); /* Задаємо ширину кожної форми */
+    margin-bottom: 20px; /* Відступ між формами */
+    border: 1px solid #ccc; /* Границя */
+    border-radius: 5px; /* Радіус кутів */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тінь */
+    padding: 20px; /* Внутрішні відступи */
+    box-sizing: border-box; /* Враховуємо границю та внутрішні відступи в ширину елемента */
+}
+
+.resource-form input[type="text"],
+.resource-form input[type="date"],
+.resource-form button[type="submit"] {
+    width: calc(100% - 20px); /* Ширина полів вводу та кнопок */
+    margin-bottom: 10px; /* Відступ між елементами */
+    padding: 10px; /* Внутрішні відступи */
+    border: 1px solid #ccc; /* Границя */
+    border-radius: 5px; /* Радіус кутів */
+    box-sizing: border-box; /* Враховуємо границю та внутрішні відступи в ширину елемента */
+}
+
+.resource-form button[type="submit"] {
+    background-color: #007bff; /* Колір фону кнопки */
+    color: #fff; /* Колір тексту кнопки */
+    cursor: pointer; /* Змінюємо вигляд курсора при наведенні */
+}
+
+.resource-form button[type="submit"]:hover {
+    background-color: #0056b3; /* Колір фону кнопки при наведенні */
+}

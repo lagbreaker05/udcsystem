@@ -14,6 +14,10 @@ import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class UDC {
 	@Id
@@ -26,6 +30,7 @@ public class UDC {
     private String code;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "parent_id")
     private UDC parent;
 
@@ -34,6 +39,7 @@ public class UDC {
     @OneToMany(mappedBy = "udc", cascade = CascadeType.ALL)
     private List<Resource> resources;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<UDC> children;
 

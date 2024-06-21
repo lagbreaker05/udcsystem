@@ -43,7 +43,7 @@ public class SecurityConfig  {
 		
 		http.csrf(c -> c.disable())
 		.authorizeHttpRequests(request ->request.requestMatchers("/admin/**").hasAuthority("ADMIN").requestMatchers("/user/**").permitAll()
-				.requestMatchers("/registration", "/css/**") .permitAll().requestMatchers("/registration/**") .permitAll().requestMatchers("/login/**") .permitAll()
+				.requestMatchers("/registration", "/css/**", "/img/**") .permitAll().requestMatchers("/registration/**") .permitAll().requestMatchers("/login/**") .permitAll()
 				.anyRequest().authenticated())
 		
 		.formLogin(form ->form.loginPage("/login").loginProcessingUrl("/login")
